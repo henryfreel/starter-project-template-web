@@ -88,15 +88,13 @@ function icon(name, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#${name}"></use></svg>`;
 }
 
-const IS_TEMPLATE = document.title === 'Project Template';
+const IS_TEMPLATE = document.documentElement.dataset.template === 'true';
 
 function getInstanceId() {
   const key = 'project-instance-id';
   let id = localStorage.getItem(key);
   if (!id) {
-    const short = crypto.randomUUID().split('-')[0];
-    const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
-    id = `${short} · ${stamp}`;
+    id = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     localStorage.setItem(key, id);
   }
   return id;
