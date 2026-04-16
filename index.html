@@ -48,14 +48,14 @@
       <h1 id="hero-title" style="font-size: var(--text-subtitle); font-weight: var(--weight-bold); color: var(--text-default);">
         Welcome to My Project
       </h1>
-      <a href="https://github.com/henryfreel/starter-project-template-web" target="_blank" rel="noopener noreferrer" class="btn btn-subtle">Learn More</a>
+      <a href="https://github.com/henryfreel/starter-project-template-web" target="_blank" rel="noopener noreferrer" class="btn btn-subtle" style="align-self: flex-start;">Learn More</a>
     </section>
 
     <!-- Table (data-bound) -->
     <section style="display: flex; flex-direction: column; gap: var(--space-400);">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2 style="font-size: var(--text-heading); font-weight: var(--weight-semibold); color: var(--text-default);">Team</h2>
-        <button class="btn btn-brand" id="create-new-btn">Create New</button>
+        <button class="btn btn-brand" id="open-modal">Create New</button>
       </div>
       <div id="team-table"></div>
     </section>
@@ -66,51 +66,56 @@
       <div id="activity-list"></div>
     </section>
 
-    <!--
-    ========================================
-    More patterns — uncomment what you need:
-    ========================================
-    -->
+  </main>
 
-    <!-- Card Grid
-    <section style="display: flex; flex-direction: column; gap: var(--space-400);">
-      <h2 style="font-size: var(--text-heading); font-weight: var(--weight-semibold); color: var(--text-default);">Cards</h2>
-      <div class="ds-card-grid" id="card-grid"></div>
-    </section>
-    -->
-
-    <!-- Form
-    <section style="display: flex; flex-direction: column; gap: var(--space-400); max-width: 400px;">
-      <h2 style="font-size: var(--text-heading); font-weight: var(--weight-semibold); color: var(--text-default);">New Entry</h2>
-      <div class="select-field" data-value="">
-        <label class="select-field-label">Category</label>
-        <div class="select-trigger-wrap">
-          <button class="select-trigger" type="button">
-            <span class="select-trigger-text placeholder">Select...</span>
-            <svg class="select-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="https://starter-project-ds.netlify.app/icons.svg#chevron-down"/></svg>
-          </button>
-          <div class="popover select-popover">
-            <div class="popover-item" data-value="Design"><span>Design</span></div>
-            <div class="popover-item" data-value="Engineering"><span>Engineering</span></div>
-            <div class="popover-item" data-value="Marketing"><span>Marketing</span></div>
+  <!-- Create New modal -->
+  <div class="modal-overlay" id="demo-modal">
+    <div class="modal-container">
+      <div class="panel-header">
+        <h3 class="panel-title">Create New Member</h3>
+        <button class="panel-dismiss" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: var(--space-400);">
+        <div style="display: flex; flex-direction: column; gap: var(--space-200);">
+          <label style="font-size: var(--text-body-small); font-weight: var(--weight-semibold); color: var(--text-default);">Name</label>
+          <input id="modal-name" type="text" placeholder="Enter name"
+            style="padding: var(--space-200) var(--space-300); border: var(--stroke-border) solid var(--border-default); border-radius: var(--radius-200); font-size: var(--text-body); color: var(--text-default); background: var(--bg-default);">
+        </div>
+        <div class="select-field" data-value="" id="modal-role-field">
+          <label class="select-field-label">Role</label>
+          <div class="select-trigger-wrap">
+            <button class="select-trigger" type="button">
+              <span class="select-trigger-text placeholder">Select role...</span>
+              <svg class="select-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="popover select-popover">
+              <div class="popover-item" data-value="Designer"><span>Designer</span></div>
+              <div class="popover-item" data-value="Engineer"><span>Engineer</span></div>
+              <div class="popover-item" data-value="Product Manager"><span>Product Manager</span></div>
+              <div class="popover-item" data-value="Marketing"><span>Marketing</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="select-field" data-value="" id="modal-status-field">
+          <label class="select-field-label">Status</label>
+          <div class="select-trigger-wrap">
+            <button class="select-trigger" type="button">
+              <span class="select-trigger-text placeholder">Select status...</span>
+              <svg class="select-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#chevron-down"></use></svg>
+            </button>
+            <div class="popover select-popover">
+              <div class="popover-item" data-value="Active"><span>Active</span></div>
+              <div class="popover-item" data-value="Away"><span>Away</span></div>
+            </div>
           </div>
         </div>
       </div>
-      <button class="btn btn-brand" style="align-self: flex-start;">Submit</button>
-    </section>
-    -->
-
-  </main>
-
-  <!-- Icons: use the SVG sprite from the DS CDN at any size -->
-  <!--
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <use href="https://starter-project-ds.netlify.app/icons.svg#heart"></use>
-    </svg>
-
-    Change width/height for different sizes: 16, 20, 24, 32, 40, 48
-    viewBox always stays "0 0 24 24"
-  -->
+      <div class="panel-footer">
+        <button class="btn btn-neutral" id="close-modal-cancel">Cancel</button>
+        <button class="btn btn-brand" id="close-modal-save">Save</button>
+      </div>
+    </div>
+  </div>
 
   <!-- DS interactive components (theme toggle, overlays, selects, etc.) -->
   <script src="https://starter-project-ds.netlify.app/js/main.js"></script>

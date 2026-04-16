@@ -139,4 +139,39 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   team.onChange(render);
   render();
+
+  // Modal: save new team member
+  const saveBtn = document.getElementById('close-modal-save');
+  const modalOverlay = document.getElementById('demo-modal');
+
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      const nameInput = document.getElementById('modal-name');
+      const roleField = document.getElementById('modal-role-field');
+      const statusField = document.getElementById('modal-status-field');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const role = roleField ? roleField.getAttribute('data-value') || '' : '';
+      const status = statusField ? statusField.getAttribute('data-value') || '' : '';
+
+      if (name && role && status) {
+        team.add({ name, role, status });
+        if (nameInput) nameInput.value = '';
+        if (roleField) {
+          roleField.setAttribute('data-value', '');
+          roleField.querySelector('.select-trigger-text').textContent = 'Select role...';
+          roleField.querySelector('.select-trigger-text').classList.add('placeholder');
+        }
+        if (statusField) {
+          statusField.setAttribute('data-value', '');
+          statusField.querySelector('.select-trigger-text').textContent = 'Select status...';
+          statusField.querySelector('.select-trigger-text').classList.add('placeholder');
+        }
+        if (modalOverlay) {
+          modalOverlay.classList.remove('open');
+          document.body.classList.remove('overlay-open');
+        }
+      }
+    });
+  }
 });

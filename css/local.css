@@ -1,8 +1,10 @@
-/* Project-specific styles
-   Add your custom CSS here. Design system tokens are available:
-   var(--text-default), var(--bg-brand), var(--space-400), etc.
-   Full reference: https://starter-project-ds.netlify.app/
-*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;600&display=swap');
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-default);
+  background-color: var(--bg-default);
+}
 
 .ds-header {
   max-width: 100%;
