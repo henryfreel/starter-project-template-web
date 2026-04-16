@@ -125,17 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       `
     });
 
-    renderList('#activity-list', team.getAll(), item => `
-      <div class="list-row">
-        <div class="list-row-left">
-          <div class="avatar avatar-sm">${item.name.charAt(0)}</div>
-          <div class="list-row-text">
-            <span class="list-row-title">${item.name}</span>
-            <span class="list-row-subtitle">${item.role} · ${item.status}</span>
-          </div>
-        </div>
-      </div>
-    `);
+
   }
 
   team.onChange(render);
