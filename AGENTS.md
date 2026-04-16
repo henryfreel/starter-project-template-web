@@ -99,6 +99,38 @@ renderCards('#selector', items, item => `<div class="card">...</div>`);
 2. Load it in `app.js`: `const products = await loadData('./data/products.json');`
 3. Add a render function and bind it with `products.onChange(renderProducts);`
 
+## Styling Rules
+
+**Every visible element must be styled using a DS class or DS tokens. No exceptions.**
+
+1. Before adding any styled element, check the live DS reference at https://starter-project-ds.netlify.app/ and the CSS at https://starter-project-ds.netlify.app/css/components.css for an existing class.
+2. If a DS class exists, use it. Do not recreate its styles with inline CSS or custom classes.
+3. If no DS class exists for the element you need, **stop and call it out** — do not invent a custom class or use raw CSS values. Flag it so a proper DS component can be created.
+4. When inline styles are unavoidable (e.g., layout wrappers), every value must reference a DS token (`var(--space-400)`, `var(--text-default)`, etc.). Never use raw hex colors, pixel values, or font names.
+5. `css/local.css` is only for base body styles and narrow project-specific overrides that reference DS tokens.
+
+### DS gaps (elements without a DS class)
+
+The following elements are used in this project but do not have dedicated DS classes. They are styled using DS tokens via inline styles until proper DS classes are created:
+
+| Element | Current approach | DS tokens used |
+|---------|-----------------|----------------|
+| Inline text link | `style="color: var(--text-default); text-decoration: underline;"` | `--text-default` |
+| Text input field | Inline styles on `<input>` | `--space-200`, `--space-300`, `--stroke-border`, `--border-default`, `--radius-200`, `--text-body`, `--text-default`, `--bg-default` |
+
+When a DS class is added for any of these, update this table and replace the inline styles with the new class.
+
+### DS issues (bugs and behavioral limitations)
+
+The following DS bugs or limitations required workarounds in this project. These should be fixed in the DS itself:
+
+| Component | Issue | Workaround in this project | DS fix needed |
+|-----------|-------|---------------------------|---------------|
+| `components.css` — Modal | `.modal-container` has `overflow: hidden` and `.modal-body` has `overflow-y: auto`, which clips `position: absolute` popovers inside the modal. | `local.css` overrides both to `overflow: visible`. | Popovers inside modals should escape the scroll container (e.g., use `position: fixed` with JS-calculated coordinates, or remove overflow clipping when a popover is open). |
+| CDN — Base body styles | The three CDN files (`reset.css`, `tokens.css`, `components.css`) do not set `font-family`, `color`, or `background-color` on `body`. Without these, the DS font never applies globally and dark mode doesn't toggle the page background. | `local.css` sets `font-family: var(--font-sans)`, `color: var(--text-default)`, `background-color: var(--bg-default)` on `body`. | Add base body styles to one of the CDN files (likely `reset.css` or `tokens.css`) so consumer projects get correct defaults without manual setup. |
+
+When an issue is fixed in the DS, remove the workaround from this project and delete the row from this table.
+
 ## Conventions
 
 - All data objects must have a numeric `id` field

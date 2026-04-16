@@ -90,6 +90,8 @@ function icon(name, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="${DS_CDN}/icons.svg#${name}"></use></svg>`;
 }
 
+const IS_TEMPLATE = document.title === 'Project Template';
+
 function getInstanceId() {
   const key = 'project-instance-id';
   let id = localStorage.getItem(key);
@@ -104,12 +106,14 @@ function getInstanceId() {
 
 // Boot — load data and render the page
 document.addEventListener('DOMContentLoaded', async () => {
-  const instanceId = getInstanceId();
-  const logo = document.getElementById('logo-text');
-  const hero = document.getElementById('hero-title');
-  if (logo) logo.textContent = `My Project (${instanceId})`;
-  if (hero) hero.textContent = `Welcome to My Project (${instanceId})`;
-  document.title = `My Project (${instanceId})`;
+  if (!IS_TEMPLATE) {
+    const instanceId = getInstanceId();
+    const logo = document.getElementById('logo-text');
+    const hero = document.getElementById('hero-title');
+    if (logo) logo.textContent = `My Project (${instanceId})`;
+    if (hero) hero.textContent = `Welcome to My Project (${instanceId})`;
+    document.title = `My Project (${instanceId})`;
+  }
 
   const team = await loadData('./data/sample.json');
 
@@ -120,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td>${item.name}</td>
         <td>${item.role}</td>
         <td><span class="tag tag-${item.status === 'Active' ? 'positive' : 'neutral'} secondary">${item.status}</span></td>
-        <td><button class="btn btn-subtle btn-sm">Edit</button></td>
+        <td class="align-right"><button class="btn btn-subtle btn-sm" data-edit-id="${item.id}">Edit</button></td>
       `
     });
 
@@ -139,6 +143,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   team.onChange(render);
   render();
+
+  // Blade: show member detail on Edit click
+  const bladeOverlay = document.getElementById('demo-blade');
+  const bladeTitle = document.getElementById('blade-title');
+  const bladeBody = document.getElementById('blade-body');
+
+  document.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-edit-id]');
+    if (!editBtn) return;
+    const id = Number(editBtn.getAttribute('data-edit-id'));
+    const member = team.getById(id);
+    if (!member || !bladeOverlay) return;
+
+    bladeTitle.textContent = member.name;
+    bladeBody.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: var(--space-600);">
+        <div style="display: flex; align-items: center; gap: var(--space-400);">
+          <div class="avatar">${member.name.charAt(0)}</div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-050);">
+            <span style="font-size: var(--text-subheading); font-weight: var(--weight-semibold); color: var(--text-default);">${member.name}</span>
+            <span style="font-size: var(--text-body-small); color: var(--text-secondary);">${member.role}</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--space-300);">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: var(--text-body-small); color: var(--text-secondary);">Role</span>
+            <span style="font-size: var(--text-body-small); color: var(--text-default);">${member.role}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-size: var(--text-body-small); color: var(--text-secondary);">Status</span>
+            <span class="tag tag-${member.status === 'Active' ? 'positive' : 'neutral'} secondary">${member.status}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    bladeOverlay.classList.add('open');
+    document.body.classList.add('overlay-open');
+  });
 
   // Modal: save new team member
   const saveBtn = document.getElementById('close-modal-save');

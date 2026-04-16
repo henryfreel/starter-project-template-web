@@ -9,3 +9,11 @@ body {
 .ds-header {
   max-width: 100%;
 }
+
+.modal-container {
+  overflow: visible;
+}
+
+.modal-body {
+  overflow: visible;
+}
