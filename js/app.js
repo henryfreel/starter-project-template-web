@@ -88,7 +88,8 @@ function icon(name, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#${name}"></use></svg>`;
 }
 
-const IS_TEMPLATE = document.documentElement.dataset.template === 'true';
+const templateOrigin = document.querySelector('meta[name="template-origin"]')?.content || '';
+const IS_TEMPLATE = templateOrigin && window.location.origin === templateOrigin;
 
 function getInstanceId() {
   const key = 'project-instance-id';
