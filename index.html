@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Project</title>
+
+  <!-- Design System (CDN) -->
+  <link rel="stylesheet" href="https://starter-project-ds.netlify.app/css/reset.css">
+  <link rel="stylesheet" href="https://starter-project-ds.netlify.app/css/tokens.css">
+  <link rel="stylesheet" href="https://starter-project-ds.netlify.app/css/components.css">
+
+  <!-- Project-specific styles -->
+  <link rel="stylesheet" href="css/local.css">
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <span class="toggle-icon">
+      <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
+    <span class="toggle-label">Light</span>
+  </button>
+
+  <!-- Header -->
+  <header class="ds-header">
+    <div class="logo-mark" style="font-weight: 700; font-size: 18px; color: var(--text-default);">
+      My Project
+    </div>
+    <nav class="nav-pill-list">
+      <a class="nav-pill active" href="#">Home</a>
+      <a class="nav-pill" href="#">About</a>
+      <a class="nav-pill" href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main style="padding: var(--space-800); display: flex; flex-direction: column; gap: var(--space-600); max-width: 960px; margin: 0 auto;">
+
+    <!-- Hero -->
+    <section style="display: flex; flex-direction: column; gap: var(--space-400);">
+      <h1 style="font-size: var(--text-heading-2); font-weight: var(--weight-bold); color: var(--text-default);">
+        Welcome to My Project
+      </h1>
+      <p style="font-size: var(--text-body); color: var(--text-secondary); line-height: 1.5; max-width: 600px;">
+        This project uses the Simple Design System via CDN. Edit this page, add your data, and start building.
+      </p>
+      <div style="display: flex; gap: var(--space-300); flex-wrap: wrap;">
+        <button class="btn btn-brand">Get Started</button>
+        <button class="btn btn-subtle">Learn More</button>
+      </div>
+    </section>
+
+    <!-- Table (data-bound) -->
+    <section style="display: flex; flex-direction: column; gap: var(--space-400);">
+      <h2 style="font-size: var(--text-heading-3); font-weight: var(--weight-semibold); color: var(--text-default);">Team</h2>
+      <div id="team-table"></div>
+    </section>
+
+    <!-- List (data-bound) -->
+    <section style="display: flex; flex-direction: column; gap: var(--space-400);">
+      <h2 style="font-size: var(--text-heading-3); font-weight: var(--weight-semibold); color: var(--text-default);">Activity</h2>
+      <div id="activity-list"></div>
+    </section>
+
+    <!--
+    ========================================
+    More patterns — uncomment what you need:
+    ========================================
+    -->
+
+    <!-- Card Grid
+    <section style="display: flex; flex-direction: column; gap: var(--space-400);">
+      <h2 style="font-size: var(--text-heading-3); font-weight: var(--weight-semibold); color: var(--text-default);">Cards</h2>
+      <div class="ds-card-grid" id="card-grid"></div>
+    </section>
+    -->
+
+    <!-- Form
+    <section style="display: flex; flex-direction: column; gap: var(--space-400); max-width: 400px;">
+      <h2 style="font-size: var(--text-heading-3); font-weight: var(--weight-semibold); color: var(--text-default);">New Entry</h2>
+      <div class="select-field" data-value="">
+        <label class="select-field-label">Category</label>
+        <div class="select-trigger-wrap">
+          <button class="select-trigger" type="button">
+            <span class="select-trigger-text placeholder">Select...</span>
+            <svg class="select-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="https://starter-project-ds.netlify.app/icons.svg#chevron-down"/></svg>
+          </button>
+          <div class="popover select-popover">
+            <div class="popover-item" data-value="Design"><span>Design</span></div>
+            <div class="popover-item" data-value="Engineering"><span>Engineering</span></div>
+            <div class="popover-item" data-value="Marketing"><span>Marketing</span></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-brand" style="align-self: flex-start;">Submit</button>
+    </section>
+    -->
+
+  </main>
+
+  <!-- Icons: use the SVG sprite from the DS CDN at any size -->
+  <!--
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <use href="https://starter-project-ds.netlify.app/icons.svg#heart"></use>
+    </svg>
+
+    Change width/height for different sizes: 16, 20, 24, 32, 40, 48
+    viewBox always stays "0 0 24 24"
+  -->
+
+  <!-- DS interactive components (theme toggle, overlays, selects, etc.) -->
+  <script src="https://starter-project-ds.netlify.app/js/main.js"></script>
+
+  <!-- Project logic + data layer -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>

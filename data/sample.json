@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Alice Martin", "role": "Designer", "status": "Active" },
+  { "id": 2, "name": "Bob Chen", "role": "Engineer", "status": "Active" },
+  { "id": 3, "name": "Carol Davis", "role": "Product Manager", "status": "Away" },
+  { "id": 4, "name": "David Kim", "role": "Engineer", "status": "Active" },
+  { "id": 5, "name": "Eva Rodriguez", "role": "Marketing", "status": "Offline" }
+]
