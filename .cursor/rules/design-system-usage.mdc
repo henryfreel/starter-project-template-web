@@ -1,0 +1,89 @@
+---
+description: Enforces use of the Simple Design System tokens and components — never invent custom values
+alwaysApply: true
+---
+
+# Design System — Use Tokens and Components, Never Custom Values
+
+This project consumes the **Simple Design System** via CDN. Every color, spacing value, typography setting, shadow, radius, and UI component you need already exists. **Never create custom/hardcoded values** unless the user explicitly asks for something custom.
+
+Full reference: https://starter-project-ds.netlify.app/
+
+## Tokens (CSS custom properties from `tokens.css`)
+
+### Colors — Always Use Semantic Tokens
+
+Use **semantic** tokens (not primitives) so light/dark theming works automatically.
+
+| Category | Examples |
+|----------|---------|
+| Background | `--bg-default`, `--bg-secondary`, `--bg-brand`, `--bg-positive`, `--bg-warning`, `--bg-danger`, plus `-hover`, `-secondary`, `-tertiary` variants |
+| Text | `--text-default`, `--text-secondary`, `--text-tertiary`, `--text-brand`, `--text-positive`, `--text-warning`, `--text-danger`, plus `-on-*` variants for text on colored backgrounds |
+| Border | `--border-default`, `--border-brand`, `--border-positive`, `--border-warning`, `--border-danger`, plus `-secondary`, `-tertiary` |
+| Icon | `--icon-default`, `--icon-secondary`, `--icon-brand`, `--icon-positive`, `--icon-warning`, `--icon-danger`, plus `-on-*` variants |
+
+Color primitives (`--brand-600`, `--gray-300`, etc.) should only be used if you need to define a new semantic token — never directly in component styles.
+
+### Spacing
+
+`--space-0` (0px), `--space-050` (2px), `--space-100` (4px), `--space-150` (6px), `--space-200` (8px), `--space-300` (12px), `--space-400` (16px), `--space-600` (24px), `--space-800` (32px), `--space-1200` (48px), `--space-1600` (64px), `--space-2400` (96px), `--space-4000` (160px)
+
+Never write raw pixel values for spacing. Use these tokens.
+
+### Typography
+
+| Token | Value |
+|-------|-------|
+| `--text-title-hero` | 72px |
+| `--text-title-page` | 48px |
+| `--text-subtitle` | 32px |
+| `--text-subtitle-small` | 24px |
+| `--text-heading` | 24px |
+| `--text-subheading` | 20px |
+| `--text-body` | 16px |
+| `--text-body-small` | 14px |
+
+Weights: `--weight-regular` (400), `--weight-semibold` (600), `--weight-bold` (700)
+Line heights: `--leading-tight` (1.2), `--leading-normal` (1.4), `--leading-none` (1), `--leading-code` (1.3)
+Fonts: `--font-sans`, `--font-mono`
+
+### Border Radius
+
+`--radius-100` (4px), `--radius-200` (8px), `--radius-400` (16px), `--radius-full` (9999px)
+
+### Shadows
+
+Drop: `--shadow-100` through `--shadow-600`
+Inner: `--inner-shadow-100` through `--inner-shadow-600`
+
+### Stroke
+
+`--stroke-border` (1px), `--stroke-focus-ring` (2px)
+
+## Components — Use DS Classes
+
+Before building any UI element, you **must** check the live DS reference to see if a component already exists.
+
+### How to check for available components
+
+1. **Fetch the live reference page** at https://starter-project-ds.netlify.app/ — this is the canonical source of truth for all available components, their class names, and usage examples.
+2. **Fetch the live CSS** at https://starter-project-ds.netlify.app/css/components.css — this contains every component class the DS provides. Search it for relevant class names before creating anything custom.
+
+Always do this lookup before writing new HTML. The DS is actively maintained and new components may be added at any time. Do not rely on a memorized list.
+
+### Available token files (fetch these for the latest values)
+
+- **Tokens:** https://starter-project-ds.netlify.app/css/tokens.css
+- **Components:** https://starter-project-ds.netlify.app/css/components.css
+- **Reset:** https://starter-project-ds.netlify.app/css/reset.css
+
+## Rules
+
+1. **Never hardcode colors.** No `#hex`, no `rgb()`, no `hsl()`. Always `var(--bg-*)`, `var(--text-*)`, `var(--border-*)`, `var(--icon-*)`.
+2. **Never hardcode spacing.** No raw `px` for margin/padding/gap. Always `var(--space-*)`.
+3. **Never hardcode font sizes.** Always `var(--text-*)` tokens.
+4. **Never hardcode radii.** Always `var(--radius-*)`.
+5. **Never hardcode shadows.** Always `var(--shadow-*)` or `var(--inner-shadow-*)`.
+6. **Never invent components.** Check the DS reference first. Only create custom components when no DS equivalent exists AND the user has explicitly requested it.
+7. **Project overrides go in `css/local.css`** and must still reference DS tokens.
+8. **Icons** come from the CDN SVG sprite or the `icon()` JS helper.

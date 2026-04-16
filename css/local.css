@@ -3,3 +3,7 @@
    var(--text-default), var(--bg-brand), var(--space-400), etc.
    Full reference: https://starter-project-ds.netlify.app/
 */
+
+.ds-header {
+  max-width: 100%;
+}
