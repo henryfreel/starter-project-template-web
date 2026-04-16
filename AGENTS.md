@@ -15,6 +15,7 @@ This is a static HTML/CSS/JS project that consumes the Simple Design System via 
 | `css/local.css` | Project-specific style overrides. DS tokens are available here. |
 | `js/app.js` | Data layer (loadData, CRUD store) + render helpers + boot logic. |
 | `data/sample.json` | Default data file. Add more JSON files in `data/` as needed. |
+| `ds-version.json` | Tracks the last known DS version. Agents compare against the DS changelog at session start. |
 | `netlify.toml` | Netlify deploy config. |
 
 ## Design System CDN
@@ -29,6 +30,24 @@ The DS is loaded via three CSS files and one JS file in `index.html`:
 ```
 
 Do not duplicate DS styles locally. Use DS classes directly in HTML (`btn btn-brand`, `ds-table`, `list-row`, etc.). For project-specific overrides, use `css/local.css`.
+
+## DS Update Checks
+
+The DS is actively maintained. CSS and JS updates arrive automatically via CDN, but **HTML markup changes require manual adoption** in consumer projects.
+
+### How it works
+
+1. The DS publishes a changelog at `https://starter-project-ds.netlify.app/changelog.json` with a version number and a list of breaking markup changes.
+2. This project tracks the last known DS version in `ds-version.json`.
+3. **At the start of every agent session**, fetch `changelog.json` and compare its `version` against `ds-version.json`. If the DS version is newer:
+   - Review each entry in `breakingChanges`.
+   - Update any affected HTML markup in the project.
+   - Write the new version to `ds-version.json`.
+4. **Every time you add or edit DS component markup**, fetch the live reference at https://starter-project-ds.netlify.app/ to get the current pattern. Never reuse markup from memory or earlier in the conversation.
+
+### If `changelog.json` doesn't exist yet
+
+The endpoint may not be available immediately. If the fetch returns a 404, skip the version check and proceed normally — but still always fetch the live reference before writing component markup.
 
 ## Available DS Components
 
@@ -49,17 +68,19 @@ Full reference with examples at https://starter-project-ds.netlify.app/. Key com
 
 ## Icons
 
-Use the SVG sprite from the CDN:
+The DS `main.js` auto-injects the SVG sprite into the DOM. Use local fragment references (`#icon-name`), **not** full CDN URLs:
 
 ```html
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <use href="https://starter-project-ds.netlify.app/icons.svg#icon-name"></use>
+  <use href="#icon-name"></use>
 </svg>
 ```
 
 Or use the `icon()` helper in JS: `icon('heart', 24)` returns the SVG string.
 
 Change `width`/`height` for different sizes (16, 20, 24, 32, 40, 48). `viewBox` always stays `"0 0 24 24"`.
+
+**Do not** use `https://starter-project-ds.netlify.app/icons.svg#name` — browsers block cross-origin SVG `<use>` references.
 
 ## Data Layer
 
@@ -126,7 +147,6 @@ The following DS bugs or limitations required workarounds in this project. These
 
 | Component | Issue | Workaround in this project | DS fix needed |
 |-----------|-------|---------------------------|---------------|
-| `components.css` — Modal | `.modal-container` has `overflow: hidden` and `.modal-body` has `overflow-y: auto`, which clips `position: absolute` popovers inside the modal. | `local.css` overrides both to `overflow: visible`. | Popovers inside modals should escape the scroll container (e.g., use `position: fixed` with JS-calculated coordinates, or remove overflow clipping when a popover is open). |
 | CDN — Base body styles | The three CDN files (`reset.css`, `tokens.css`, `components.css`) do not set `font-family`, `color`, or `background-color` on `body`. Without these, the DS font never applies globally and dark mode doesn't toggle the page background. | `local.css` sets `font-family: var(--font-sans)`, `color: var(--text-default)`, `background-color: var(--bg-default)` on `body`. | Add base body styles to one of the CDN files (likely `reset.css` or `tokens.css`) so consumer projects get correct defaults without manual setup. |
 
 When an issue is fixed in the DS, remove the workaround from this project and delete the row from this table.

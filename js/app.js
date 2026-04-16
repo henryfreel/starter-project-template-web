@@ -84,10 +84,8 @@ function renderCards(container, items, templateFn) {
 }
 
 // DS icon helper — returns an SVG string referencing the CDN sprite
-const DS_CDN = 'https://starter-project-ds.netlify.app';
-
 function icon(name, size = 24) {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="${DS_CDN}/icons.svg#${name}"></use></svg>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#${name}"></use></svg>`;
 }
 
 const IS_TEMPLATE = document.title === 'Project Template';

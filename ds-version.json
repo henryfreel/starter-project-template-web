@@ -1,0 +1,5 @@
+{
+  "dsVersion": "1.2.0",
+  "lastChecked": "2026-04-16",
+  "note": "Agents compare this against https://starter-project-ds.netlify.app/changelog.json at session start"
+}

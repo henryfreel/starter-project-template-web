@@ -24,7 +24,7 @@ netlify.toml        — auto-deploy config
 All components, tokens, and icons are loaded via CDN from the design system. No local CSS needed for DS components.
 
 - **Component reference:** https://starter-project-ds.netlify.app/
-- **Icons:** Use the SVG sprite — `<use href="https://starter-project-ds.netlify.app/icons.svg#icon-name">`
+- **Icons:** Use the SVG sprite (auto-injected by `main.js`) — `<use href="#icon-name">`
 - **Tokens:** CSS custom properties like `var(--text-default)`, `var(--bg-brand)`, `var(--space-400)`
 
 ## Data layer
