@@ -90,8 +90,27 @@ function icon(name, size = 24) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="${DS_CDN}/icons.svg#${name}"></use></svg>`;
 }
 
+function getInstanceId() {
+  const key = 'project-instance-id';
+  let id = localStorage.getItem(key);
+  if (!id) {
+    const short = crypto.randomUUID().split('-')[0];
+    const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    id = `${short} · ${stamp}`;
+    localStorage.setItem(key, id);
+  }
+  return id;
+}
+
 // Boot — load data and render the page
 document.addEventListener('DOMContentLoaded', async () => {
+  const instanceId = getInstanceId();
+  const logo = document.getElementById('logo-text');
+  const hero = document.getElementById('hero-title');
+  if (logo) logo.textContent = `My Project (${instanceId})`;
+  if (hero) hero.textContent = `Welcome to My Project (${instanceId})`;
+  document.title = `My Project (${instanceId})`;
+
   const team = await loadData('./data/sample.json');
 
   function render() {
