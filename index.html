@@ -48,18 +48,15 @@
       <h1 style="font-size: var(--text-subtitle); font-weight: var(--weight-bold); color: var(--text-default);">
         Welcome to My Project
       </h1>
-      <p style="font-size: var(--text-body); color: var(--text-secondary); line-height: 1.5; max-width: 600px;">
-        This project uses the Simple Design System via CDN. Edit this page, add your data, and start building.
-      </p>
-      <div style="display: flex; gap: var(--space-300); flex-wrap: wrap;">
-        <button class="btn btn-brand">Get Started</button>
-        <button class="btn btn-subtle">Learn More</button>
-      </div>
+      <a href="https://github.com/henryfreel/starter-project-template-web" target="_blank" rel="noopener noreferrer" class="btn btn-subtle">Learn More</a>
     </section>
 
     <!-- Table (data-bound) -->
     <section style="display: flex; flex-direction: column; gap: var(--space-400);">
-      <h2 style="font-size: var(--text-heading); font-weight: var(--weight-semibold); color: var(--text-default);">Team</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: var(--text-heading); font-weight: var(--weight-semibold); color: var(--text-default);">Team</h2>
+        <button class="btn btn-brand" id="create-new-btn">Create New</button>
+      </div>
       <div id="team-table"></div>
     </section>
 

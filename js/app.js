@@ -96,11 +96,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function render() {
     renderTable('#team-table', team.getAll(), {
-      columns: ['Name', 'Role', 'Status'],
+      columns: ['Name', 'Role', 'Status', ''],
       row: item => `
         <td>${item.name}</td>
         <td>${item.role}</td>
         <td><span class="tag tag-${item.status === 'Active' ? 'positive' : 'neutral'} secondary">${item.status}</span></td>
+        <td><button class="btn btn-subtle btn-sm">Edit</button></td>
       `
     });
 
